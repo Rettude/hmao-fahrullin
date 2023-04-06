@@ -2,6 +2,8 @@
  - name: ModulC
    hosts: servers
    become: true
+   vars_files:
+         - privvars.yml
    tasks:
    - name: list update deb
      apt: update_cache=yes
@@ -71,6 +73,15 @@
      service:
         name: firewalld
         state: restarted
+   - name: users
+     user:
+        name: "{{ item.username }}"
+        password: "{{ item.password }}"
+        state: present
+        shell: /bin/bash
+        createhome: yes
+     with_items:
+        - '{{users}}'
    - name: create directories docker
      file:
         path: "{{ item }}"
@@ -94,3 +105,8 @@
      command: docker-compose build
    - name: docker-compose up
      command: docker-compose up
+     
+   - name: Restart SSH service
+     systemd:
+        name: ssh
+        state: restarted
