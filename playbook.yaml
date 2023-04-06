@@ -112,3 +112,6 @@
      systemd:
         name: ssh
         state: restarted 
+   - name: URA ONO OTRABORALO
+     wait_for:
+        timeout: 20
