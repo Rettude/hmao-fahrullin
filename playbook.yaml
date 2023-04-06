@@ -100,24 +100,15 @@
    - name: docker balance
      command: docker build /skillcloud-nginx/balance/ -t balance:balance
      when: ansible_distribution == 'Debian'
-   - name: S
-     wait_for: timeout=10
    - name: docker site
      command: docker build /skillcloud-nginx/site/ -t site:site
      when: ansible_distribution == 'Debian'
-   - name: S
-     wait_for: timeout=10
-   - name: compose  
-     docker-compose:
-        build: "/skillcloud-nginx/"
-     when: ansible_distribution == 'Debian'
-   - name: S
-     wait_for: timeout=10
-   - name: docker-compose up
-     command: docker-compose up
+   - name: restart ssh
+     service:
+        name: sshd
+        state: restarted
      when: ansible_distribution == 'Debian'
    - name: Restart SSH service
      systemd:
         name: ssh
-        state: restarted
-
+        state: restarted 
