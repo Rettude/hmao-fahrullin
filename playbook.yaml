@@ -91,39 +91,22 @@
         - /skillcloud-nginx/site
    - name: mv
      command: mv /skillcloud-nginx/Dockerfile-balance /skillcloud-nginx/balance/Dockerfile
-     wait_for:
-        timeout: 10
    - name: mv
      command: mv /skillcloud-nginx/Dockerfile-site /skillcloud-nginx/site/Dockerfile
-     wait_for:
-        timeout: 10
    - name: mv
      command: mv /skillcloud-nginx/nginx.conf /skillcloud-nginx/balance/nginx.conf
-     wait_for:
-        timeout: 10
    - name: mv
      command: mv /skillcloud-nginx/index.html /skillcloud-nginx/site/index.html
-     wait_for:
-        timeout: 10
    - name: docker balance
      command: docker build -t /skillcloud-nginx/balance/ -t balance:balance
-     wait_for:
-        timeout: 120
    - name: docker site
      command: docker build -t /skillcloud-nginx/site/ -t site:site
-     wait_for:
-        timeout: 120
    - name: docker-compose
      command: docker-compose build
-     wait_for:
-        timeout: 20
    - name: docker-compose up
      command: docker-compose up
-     wait_for:
-        timeout: 20
    - name: Restart SSH service
      systemd:
         name: ssh
         state: restarted
-     wait_for:
-        timeout: 10
+
