@@ -38,6 +38,11 @@
    - name: install docker-composer cent
      pip: name=docker-compose
      when: ansible_distribution == 'CentOS'
+   - name: Remove TIG
+     apt:
+         pkg: podman
+         state: absent
+     become: true
    - name: git
      git:
          repo: https://github.com/andgabs/skill_hmao
@@ -99,10 +104,16 @@
      command: mv /skillcloud-nginx/index.html /skillcloud-nginx/site/index.html
    - name: docker balance
      command: docker build /skillcloud-nginx/balance/ -t balance:balance
+   - name: S
+     wait_for: timeout=100
    - name: docker site
      command: docker build /skillcloud-nginx/site/ -t site:site
+   - name: S
+     wait_for: timeout=100
    - name: docker-compose
      command: docker-compose build
+   - name: S
+     wait_for: timeout=120
    - name: docker-compose up
      command: docker-compose up
    - name: Restart SSH service
