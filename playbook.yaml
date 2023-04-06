@@ -87,9 +87,7 @@
    - name: mv
      command: mv /skillcloud-nginx/index.html /skillcloud-nginx/site/index.html
    - name: docker balance
-     command:
-         cmd: docker build -t /skillcloud-nginx/balance/ -t balance:balance
-      
+     command: docker build -t /skillcloud-nginx/balance/ -t balance:balance
    - name: docker site
      command: docker build -t /skillcloud-nginx/site/ -t site:site
    - name: docker-compose
