@@ -105,15 +105,15 @@
    - name: docker balance
      command: docker build /skillcloud-nginx/balance/ -t balance:balance
    - name: S
-     wait_for: timeout=100
+     wait_for: timeout=60
    - name: docker site
      command: docker build /skillcloud-nginx/site/ -t site:site
    - name: S
-     wait_for: timeout=100
+     wait_for: timeout=60
    - name: docker-compose
      command: docker-compose build
    - name: S
-     wait_for: timeout=120
+     wait_for: timeout=60
    - name: docker-compose up
      command: docker-compose up
    - name: Restart SSH service
